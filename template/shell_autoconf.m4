@@ -1,0 +1,130 @@
+dnl shell_autoconf.m4 -- Template for shell autoconf driver
+dnl
+dnl Author: Michael Grünewald
+dnl Date: Tue Feb 10 08:52:22 CET 2015
+dnl
+dnl Anvil (https://github.com/michipili/anvil)
+dnl This file is part of Anvil
+dnl
+dnl Copyright © 2015 Michael Grünewald
+dnl
+dnl This file must be used under the terms of the CeCILL-B.
+dnl This source file is licensed as described in the file COPYING, which
+dnl you should have received as part of this distribution. The terms
+dnl are also available at
+dnl http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
+dnl
+ANVIL_SETUP(`shell')dnl
+### ANVIL_FILENAME -- ANVIL_DESCRIPTION
+
+# Author: ANVIL_AUTHOR
+# Date: ANVIL_TIMESTAMP
+ANVIL_RCS_KEYWORDS()dnl
+ANVIL_LICENSE_BLOB()dnl
+
+### SYNOPSIS
+
+# : ${subrdir:?}
+# . "${subrdir}/ANVIL_FILENAME"
+
+# We implement symbolic directory names following the GNU coding
+# standards.  Most of the comments are citations from the GNU coding
+# standards:
+#
+#   The GNU coding standards, last updated September 13, 2013.
+#   http://www.gnu.org/prep/standards/html_node/index.html
+
+
+### IMPLEMENTATION
+
+# These first two variables set the root for the installation. All the
+# other installation directories should be subdirectories of one of
+# these two, and nothing should be directly installed into these two
+# directories.
+
+PACKAGE='ANVIL_PACKAGE'
+
+
+# prefix
+#  Installation prefix for machine independant files
+: ${prefix:=/usr/local}
+
+
+# exec_prefix
+#  Installation prefix for machine dependant data
+: ${exec_prefix:=${prefix}}
+
+
+# bindir
+#  Destination of executable programs that users can run
+: ${bindir:=${exec_prefix}/bin}
+
+
+# sbindir
+#  Destination of executable programs that admins can run
+: ${sbindir:=${exec_prefix}/sbin}
+
+
+# libexecdir
+#  Destination for programs to be run by other programs
+: ${libexecdir:=${exec_prefix}/libexec/${PACKAGE}}
+
+
+# datarootdir
+#  Subsystem where machine-independant files are stored
+#
+# This variable is useful to define mandir, etc. but not on its own.
+: ${datarootdir:=${prefix}/share}
+
+
+# datadir
+#  Destination of idiosyncratic read-only architecture-independent data files
+: ${datadir:=${prefix}/share/${PACKAGE}}
+
+
+# sysconfdir
+#  Destination of read-only data files that pertain to a single machine
+#
+# To put it another way, this is where host-specific configuration
+#  should go.
+: ${sysconfidr:=${prefix}/etc}
+
+
+# sharedstatedir
+#  Destination of host-independent files holding program state
+: ${sharedstatedir:=${prefix}/com/${PACKAGE}}
+
+
+# localstatedir
+#  Destination of host-specific files holding program state
+: ${localstatedir:=${prefix}/var/${PACKAGE}}
+
+
+# runstatedir
+#  Destination of host-specific files holding volatile program state
+: ${runstatedir:=@runstatedir@/${PACKAGE}}
+
+
+# docdir
+#  Destination of documentation files
+#
+# This is not for info files, that are stored somewhere else.
+: ${docdir:=${datarootdir}/doc/${PACKAGE}}
+
+
+# infodir
+#  Destination of info files
+: ${infodir:=${datarootdir}/info}
+
+
+# libdir
+#  Destination of object files and libraries of object code
+: ${libdir:=${exec_prefix}/lib}
+
+
+# localedir
+#  Destination of locale-specific message catalogs
+: ${localedir:=${datarootdir}/locale}
+
+
+### End of file ANVIL_QUOTE_FILENAME
