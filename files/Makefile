@@ -20,7 +20,7 @@ TREE+=			license
 
 .for tree in ${TREE}
 install-${tree}:
-	(cd ${SRCDIR} && ${COPYTREE_SHARE} ${tree} ${DESTDIR}${SHAREDIR})
+	(cd ${SRCDIR}/${tree} && ${COPYTREE_SHARE} . ${DESTDIR}${SHAREDIR}/${tree})
 
 install: install-${tree}
 .endfor
