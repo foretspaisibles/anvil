@@ -20,6 +20,7 @@ VERSION=		0.1.0-current
 
 MODULE=			shell.lib:subr
 MODULE+=		shell.prog:tool
+MODULE+=		shell.prog:git-extra
 MODULE+=		generic.files:files
 
 
