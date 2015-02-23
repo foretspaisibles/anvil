@@ -1,8 +1,5 @@
 ### anvil_driver.sh -- Anvil driver
 
-# Author: Michael Grünewald
-# Date: Mon Feb  9 09:52:43 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

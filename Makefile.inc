@@ -1,8 +1,5 @@
 ### Makefile.inc -- Project Anvil
 
-# Author: Michael Grünewald
-# Date: Mon Feb  9 22:09:02 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

@@ -1,8 +1,5 @@
 dnl autoconf.ac.m4 -- Template for autoconf scripts
 dnl
-dnl Author: Michael Grünewald
-dnl Date: Sat Feb  7 19:35:56 CET 2015
-dnl
 dnl Anvil (https://github.com/michipili/anvil)
 dnl This file is part of Anvil
 dnl
@@ -17,8 +14,6 @@ dnl
 ANVIL_SETUP(`shell')dnl
 ### configure.ac -- Autoconf
 
-# Author: ANVIL_AUTHOR
-# Date: ANVIL_TIMESTAMP
 ANVIL_RCS_KEYWORDS()dnl
 ANVIL_LICENSE_BLOB()dnl
 

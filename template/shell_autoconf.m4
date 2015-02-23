@@ -1,8 +1,5 @@
 dnl shell_autoconf.m4 -- Template for shell autoconf driver
 dnl
-dnl Author: Michael Grünewald
-dnl Date: Tue Feb 10 08:52:22 CET 2015
-dnl
 dnl Anvil (https://github.com/michipili/anvil)
 dnl This file is part of Anvil
 dnl
@@ -16,9 +13,6 @@ dnl http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 dnl
 ANVIL_SETUP(`shell')dnl
 ### ANVIL_FILENAME -- ANVIL_DESCRIPTION
-
-# Author: ANVIL_AUTHOR
-# Date: ANVIL_TIMESTAMP
 ANVIL_RCS_KEYWORDS()dnl
 ANVIL_LICENSE_BLOB()dnl
 

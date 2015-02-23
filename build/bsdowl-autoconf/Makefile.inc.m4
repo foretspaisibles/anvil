@@ -1,8 +1,5 @@
 dnl Makefile.m4 -- Template for BSD Owl project configuration
 dnl
-dnl Author: Michael Grünewald
-dnl Date: Sat Feb  7 19:33:41 CET 2015
-dnl
 dnl Anvil (https://github.com/michipili/anvil)
 dnl This file is part of Anvil
 dnl
@@ -17,8 +14,6 @@ dnl
 ANVIL_SETUP(`make')dnl
 ### Makefile.inc -- Project ANVIL_PACKAGE
 
-# Author: ANVIL_AUTHOR
-# Date: ANVIL_TIMESTAMP
 ANVIL_RCS_KEYWORDS()dnl
 ANVIL_LICENSE_BLOB()dnl
 

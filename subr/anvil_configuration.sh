@@ -1,8 +1,5 @@
 ### anvil_configuration.sh -- Configuration database
 
-# Author: Michael Grünewald
-# Date: Sat Feb  7 13:25:59 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

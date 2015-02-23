@@ -1,8 +1,5 @@
 dnl anvil.m4 -- M4 macros for Anvil
 dnl
-dnl Author: Michael Grünewald
-dnl Date: Sat Feb  7 14:48:06 CET 2015
-dnl
 dnl Anvil (https://github.com/michipili/anvil)
 dnl This file is part of Anvil
 dnl

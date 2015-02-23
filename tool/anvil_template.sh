@@ -1,8 +1,5 @@
 ### anvil_template.sh -- Anvil template insantiation
 
-# Author: Michael Grünewald
-# Date: Mon Feb  9 09:22:20 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

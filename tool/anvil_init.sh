@@ -1,8 +1,5 @@
 ### anvil_init.sh -- Init package
 
-# Author: Michael Grünewald
-# Date: Sat Feb  7 13:53:54 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

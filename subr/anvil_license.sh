@@ -1,8 +1,5 @@
 ### anvil_license.sh -- License database
 
-# Author: Michael Grünewald
-# Date: Sat Feb  7 12:52:05 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

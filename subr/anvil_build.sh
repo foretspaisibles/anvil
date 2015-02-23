@@ -1,8 +1,5 @@
 ### anvil_build.sh -- Anvil build system
 
-# Author: Michael Grünewald
-# Date: Mon Feb  9 18:19:01 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

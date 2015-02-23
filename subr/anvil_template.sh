@@ -1,8 +1,5 @@
 ### anvil_template.sh -- Template database
 
-# Author: Michael Grünewald
-# Date: Sat Feb  7 13:13:46 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

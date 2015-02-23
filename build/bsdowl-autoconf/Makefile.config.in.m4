@@ -1,7 +1,5 @@
 ### @autoconf_input@
 
-# Author: ANVIL_AUTHOR
-# Date: ANVIL_TIMESTAMP
 ANVIL_RCS_KEYWORDS()dnl
 ANVIL_LICENSE_BLOB()dnl
 

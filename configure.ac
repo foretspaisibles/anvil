@@ -1,8 +1,5 @@
 ### @autoconf_input@
 
-# Author: Michael Grünewald
-# Date: Sat Feb  7 17:34:35 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

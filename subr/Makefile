@@ -1,8 +1,5 @@
 ### Makefile -- Anvil subroutines
 
-# Author: Michael Grünewald
-# Date: Mon Feb  9 09:03:21 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #

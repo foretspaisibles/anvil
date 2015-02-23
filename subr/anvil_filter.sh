@@ -1,8 +1,5 @@
 ### anvil_filter.sh -- Anvil filters
 
-# Author: Michael Grünewald
-# Date: Mon Feb  9 21:46:39 CET 2015
-
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
 #
