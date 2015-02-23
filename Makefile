@@ -27,23 +27,6 @@ MODULE+=		generic.files:files
 CONFIGURE=		Makefile.config.in
 CONFIGURE+=		subr/anvil_autoconf.sh.in
 
-
-#
-# Prepare a simple test
-#
-
-TESTENV+=	datadir="${.CURDIR}"
-TESTENV+=	subrdir="${.CURDIR}/subr"
-TESTENV+=	anvildir="${.CURDIR}"
-TESTTOOL=	${ENVTOOL} ${TESTENV} sh
-
-test:		tool/anvil_init.sh
-	(cd ${.CURDIR} && ${TESTTOOL} ${.CURDIR}/tool/anvil_init.sh)
-
-test-template:	tool/anvil_template.sh
-	(cd ${.CURDIR} && ${TESTTOOL} ${.CURDIR}/tool/anvil_template.sh\
-	  -p shell hello.sh 'Hello, goodbye!' )
-
 .include "generic.project.mk"
 
 ### End of file `Makefile'
