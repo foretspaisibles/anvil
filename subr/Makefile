@@ -19,6 +19,7 @@ LIBRARY+=		anvil_filter.sh
 LIBRARY+=		anvil_build.sh
 LIBRARY+=		anvil_license.sh
 LIBRARY+=		anvil_template.sh
+LIBRARY+=		anvil_filterbranch.sh
 
 SUBRDIR=		${SHAREDIR}/subr
 

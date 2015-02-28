@@ -23,5 +23,6 @@
 . "${subrdir}/anvil_build.sh"
 . "${subrdir}/anvil_license.sh"
 . "${subrdir}/anvil_template.sh"
+. "${subrdir}/anvil_filterbranch.sh"
 
 ### End of file `anvil_driver.sh'
