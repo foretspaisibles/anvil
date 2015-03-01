@@ -13,7 +13,7 @@
 
 PACKAGE=		anvil
 OFFICER=		michipili@gmail.com
-VERSION=		0.1.0-current
+VERSION=		0.2.0
 
 MODULE=			shell.lib:subr
 MODULE+=		shell.prog:tool
