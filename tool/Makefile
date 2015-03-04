@@ -13,6 +13,7 @@
 
 PROGRAM=		anvil_init.sh
 PROGRAM+=		anvil_encoding.sh
+PROGRAM+=		anvil_sed.sh
 PROGRAM+=		anvil_template.sh
 PROGRAM+=		anvil_whitespace.sh
 
