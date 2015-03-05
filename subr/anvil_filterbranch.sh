@@ -64,7 +64,7 @@ filterbranch_query()
         -name 'CVS' -prune -o\
         -name 'autom4te.cache' -prune -o\
         -type f -print \
-        | xargs file -i \
+        | xargs file --mime \
         | sed -e 's/:[[:space:]]*/|/' -e 's/; charset=/|/' \
         | awk -F'|' -v OFS='|' '
 				{ key = $1; sub("\\.in$", "", key) }
