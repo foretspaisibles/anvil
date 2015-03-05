@@ -1,4 +1,4 @@
-### Makefile -- Anvil
+### Makefile -- Anvil git hooks
 
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
@@ -11,20 +11,10 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 
-PACKAGE=		anvil
-OFFICER=		michipili@gmail.com
-VERSION=		0.2.0-current
+PROGRAM+=		pre-commit.sh
 
-MODULE=			shell.lib:subr
-MODULE+=		shell.prog:tool
-MODULE+=		shell.prog:git-extra
-MODULE+=		shell.prog:git-hooks
-MODULE+=		generic.files:files
+BINDIR=			${SHAREDIR}/git-hooks
 
-
-CONFIGURE=		Makefile.config.in
-CONFIGURE+=		subr/anvil_autoconf.sh.in
-
-.include "generic.project.mk"
+.include "shell.prog.mk"
 
 ### End of file `Makefile'
