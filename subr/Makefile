@@ -16,8 +16,10 @@ LIBRARY+=		anvil_autoconf.sh
 LIBRARY+=		anvil_configuration.sh
 LIBRARY+=		anvil_driver.sh
 LIBRARY+=		anvil_filter.sh
+LIBRARY+=		anvil_git.sh
 LIBRARY+=		anvil_build.sh
 LIBRARY+=		anvil_license.sh
+LIBRARY+=		anvil_pervasives.sh
 LIBRARY+=		anvil_template.sh
 LIBRARY+=		anvil_filterbranch.sh
 
