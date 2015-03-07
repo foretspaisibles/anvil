@@ -1,34 +1,28 @@
 # Anvil, a software package assistant
 
-Anvil is a small software package assistant, which can be used to
-initialise package repositories and add files to them using some
-templates.
+Anvil is a software package assistant, which can be used to
+initialise package repositories and add files to them based on
+templates.  It also defines new git commands and git hooks.
 
 It is written using the Bourne Shell and M4, and requires GNU
 Autoconf, BSD Make and [BSD Owl](https://github.com/michipili/bsdowl)
 to build and install.
 
 
-## Initialise a new repository
+## Guide to documentation
 
-We initialise a new repository using the following command:
+The documentation is held in the [doc](./doc) directory of this
+repository.  Here are a few suggested starting points:
 
-```console
-% anvil_init newprojectdir
-```
-
-This creates a new directory, initialises it as a git repository and
-populates it with a few infrastructure related files, like a minimal
-configure script.
-
-This command is interactive and asks a few questions.  The answers to
-these questions are saved in the section `anvil` of the git
-configuration of the repository.
+ - [Anvil template](./doc/AnvilTemplate.md) — Create new files based on a template
+ - [Anvil revision history](./doc/AnvilRevisionHistory.md) – Rewrite Git revision history with specialised filters
+ - [Anvil hooks](./doc/AnvilHooks.md) — Attach hooks to your git repository
+ - [Anvil extra](./doc/AnvilExtra.md) — New git commands
 
 
-## Create a new file following a template
+## Example of file creation
 
-We print a new `shell` file using the following command:
+We produce a new `shell` file using the following command:
 
 ```console
 % anvil_template -p shell anvil_tool.sh 'Another tool in the Anvil suite'
@@ -48,22 +42,7 @@ We print a new `shell` file using the following command:
 ### End of file `anvil_tool.sh'
 ```
 
-We can create the file with the following command:
+## Example of hooks
 
-```console
-% anvil_template -p shell anvil_tool.sh 'Another tool in the Anvil suite'\
-    anvil_tool.sh
-```
-
-Note that the name of the file appears two times, which is redundant
-and should be changed in a future release.
-
-
-We can list available templates:
-
-```console
-% anvil_template -l
-        Makefile -- Makefile
-           shell -- Shell script or library
-  shell_autoconf -- Autoconf shell configuration
-```
+The [pre-commit](./git-hooks/pre-commit.sh) can be used to enforce
+several policies, related to whitespace or SCM words.
