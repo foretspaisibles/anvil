@@ -12,6 +12,7 @@
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 
 PROGRAM+=		pre-commit.sh
+PROGRAM+=		update-version.sh
 
 BINDIR=			${SHAREDIR}/git-hooks
 
