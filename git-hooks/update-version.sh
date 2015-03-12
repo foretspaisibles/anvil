@@ -47,7 +47,8 @@ action_update()
         return 1
     fi
 
-    git commit -m "${commitmesg}" 'Makefile'
+    git add 'Makefile'
+    git commit -m "${commitmesg}"
 }
 
 if ! [ $# -eq 2 ]; then

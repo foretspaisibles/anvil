@@ -34,6 +34,18 @@ releng_db()
 }
 
 
+# releng_assert_releng_branch HINT
+#  Die with HINT if we are not a releng branch
+
+releng_assert_releng_branch()
+{
+    case "$(git_current_branch)" in
+        releng/*);;
+        *)	failwith "%s: %s: Not a release-cycle branch."\
+                         "$1" "${current_branch}";;
+    esac
+}
+
 # releng_start NEXT
 #  Start release engineering for NEXT
 
@@ -60,6 +72,8 @@ releng_start()
 
 # releng_release_candidate
 #  Rollout release candidate
+#
+# It must be issued on a releng branch.
 
 releng_release_candidate__rc()
 {
@@ -76,13 +90,7 @@ releng_release_candidate()
     current_branch="$(git_current_branch)"
     next="${current_branch#releng/}"
 
-    echo $next
-
-    case "${current_branch}" in
-        releng/*);;
-        *)	failwith "release candidate: %s: Not a release-cycle branch."\
-                         "${current_branch}";;
-    esac
+    releng_assert_releng_branch 'release candidate'
 
     rc=$(releng_release_candidate__rc "${next}")
     commitmesg="$(configuration_vendorname) ${next}-rc${rc}"
@@ -93,6 +101,41 @@ releng_release_candidate()
     git tag -s -m "v${next}-rc${rc}" "v${next}-rc${rc}"
 }
 
+
+# releng_final
+#  Produce the final release
+#
+# It must be issued on a releng branch.
+
+releng_final()
+{
+    local releng_branch next commitmesg
+
+    releng_branch="$(git_current_branch)"
+    next="${releng_branch#releng/}"
+    commitmesg="$(configuration_vendorname) ${next}"
+
+    releng_assert_releng_branch 'final'
+
+    git_maybe_runhook pre-release\
+        || "pre-release"
+
+    git checkout 'release'\
+        || failwith "release: Cannot checkout branch."
+
+    git merge --no-commit -Xtheirs "${releng_branch}"\
+        || failwith "merge: Cannot merge ${releng_branch} into release."
+
+    "${git_update_version}" "${next}" "${commitmesg}"\
+        || failwith "Cannot update version."
+
+    git tag -s -m "v${next}" "v${next}"
+
+    git_maybe_runhook post-release\
+        || "post-release"
+}
+
+
 releng_usage()
 {
     format <<EOF
@@ -101,7 +144,8 @@ Usage: git releng […]
 Options:
  -s NEXT
     Start release engineering for NEXT
- -r Rollout release candidate
+ -r RC
+    Rollout release candidate RC
  -f Rollout final release
 EOF
 }

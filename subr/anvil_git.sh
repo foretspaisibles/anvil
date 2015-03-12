@@ -45,4 +45,21 @@ git_anvildir()
     echo "${anvildir}"
 }
 
+
+# git_maybe_runhook HOOK ARGS
+#  Maybe run the given hook
+
+git_maybe_runhook()
+{
+    local topleveldir hook
+
+    topleveldir=$(git_topleveldir)
+    hook="${topleveldir}/.git/hooks/$1"
+    shift
+
+    if [ -x "${hook}" ]; then
+        "${hook}" "$@"
+    fi
+}
+
 ### End of file `anvil_git.sh'
