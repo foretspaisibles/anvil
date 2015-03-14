@@ -2,7 +2,30 @@
 
 After reading this page you will know:
 
+ - How to use the `git releng` command to step through the release cycle.
  - How to use the `git recent` command to list recent commits.
+
+
+## git releng
+
+The `git releng` command steps through the release cycle, it has three
+subcommands:
+
+```console
+Usage: git releng […]
+ Release engineering
+Options:
+ -s NEXT
+    Start release engineering for NEXT
+ -r Rollout release candidate RC
+ -f Rollout final release FINAL
+```
+
+We enter the release cycle for version 1.1.0 by issuing a `git releng
+-s 1.1.0`.  This will checkout `master` and cut a release engineering
+branch from here.  It needs a hook `update-version` to update versions
+and the program will abort early if this hook is not defined.
+
 
 
 ## git recent
