@@ -12,7 +12,7 @@ dnl are also available at
 dnl http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 dnl
 ANVIL_SETUP(`make')dnl
-### Makefile -- Project ANVIL_PACKAGE
+### Makefile -- Project ANVIL_VENDORNAME
 
 ANVIL_RCS_KEYWORDS()dnl
 ANVIL_LICENSE_BLOB()dnl

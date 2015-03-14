@@ -25,6 +25,7 @@ filter_m4()
        -D ANVIL_RAW_LICENSE_BLOB="$(configuration_license_blob)"\
        -D ANVIL_AUTHOR="$(configuration_author)"\
        -D ANVIL_PACKAGE="$(configuration_package)"\
+       -D ANVIL_VENDORNAME="$(configuration_vendorname)"\
        -D ANVIL_URL="$(configuration_url)"\
        -D ANVIL_OFFICER="$(configuration_officer)"\
        anvil.m4 - \

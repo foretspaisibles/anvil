@@ -40,6 +40,7 @@ configuration_wizard__database()
 {
     cat <<'EOF'
 anvil.package|Package name
+anvil.vendorname|Vendor name
 anvil.author|Author
 anvil.officer|Release officer
 anvil.url|Package URL
@@ -81,6 +82,15 @@ configuration_url()
 configuration_package()
 {
     git config anvil.package
+}
+
+
+# configuration_vendorname
+#  Print the project vendor name on stdout
+
+configuration_vendorname()
+{
+    git config anvil.vendorname
 }
 
 
