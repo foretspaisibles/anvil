@@ -123,13 +123,22 @@ releng_final()
     git checkout 'release'\
         || failwith "release: Cannot checkout branch."
 
-    git merge --no-commit -Xtheirs "${releng_branch}"\
+    git merge --no-ff --no-commit -Xtheirs "${releng_branch}"\
         || failwith "merge: Cannot merge ${releng_branch} into release."
 
     "${git_update_version}" "${next}" "${commitmesg}"\
         || failwith "Cannot update version."
 
     git tag -s -m "v${next}" "v${next}"
+
+    git checkout 'master'\
+        || failwith "master: Cannot checkout branch."
+
+    git merge --no-ff --no-commit 'release'\
+        || failwith "merge: Cannot merge release into master."
+
+    "${git_update_version}" "${next}-current" "Merge branch 'release'"\
+        || failwith "Cannot update version."
 
     git_maybe_runhook post-release\
         || "post-release"
