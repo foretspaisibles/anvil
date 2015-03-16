@@ -24,7 +24,8 @@ configure script.
 This command is interactive and asks a few questions.  The answers to
 these questions are saved in the section `anvil` of the git
 configuration of the repository.  It is possible to convert a pre-existing
-repository just by completing the `anvil` section of the configuration file.
+repository just by running `anvil_init -c` at the toplevel directory
+of this repository.
 
 
 ## Create a new file following a template
