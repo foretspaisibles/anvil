@@ -39,7 +39,7 @@ action_update()
 
     version="$1"
     commitmesg="$2"
-    program=$(printf '/^VERSION/s/.*/VERSION=\t\t%s/' "${version}")
+    program=$(printf '/^VERSION/s/\\(VERSION=[[:space:]]*\\).*/\\1%s/' "${version}")
 
     if [ -w 'Makefile' ]; then
         sed -i '' -e "${program}" 'Makefile'
