@@ -1,4 +1,4 @@
-### Makefile -- Anvil subroutines
+### Makefile -- Anvil git hooks
 
 # Anvil (https://github.com/michipili/anvil)
 # This file is part of Anvil
@@ -11,20 +11,11 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 
-LIBRARY+=		anvil.m4
-LIBRARY+=		anvil_autoconf.sh
-LIBRARY+=		anvil_configuration.sh
-LIBRARY+=		anvil_driver.sh
-LIBRARY+=		anvil_filter.sh
-LIBRARY+=		anvil_git.sh
-LIBRARY+=		anvil_build.sh
-LIBRARY+=		anvil_license.sh
-LIBRARY+=		anvil_pervasives.sh
-LIBRARY+=		anvil_template.sh
-LIBRARY+=		anvil_filterbranch.sh
+PROGRAM+=		pre-commit.sh
+PROGRAM+=		update-version.sh
 
-SUBRDIR=		${SHAREDIR}/subr
+BINDIR=			${SHAREDIR}/git-hooks
 
-.include "shell.lib.mk"
+.include "shell.prog.mk"
 
 ### End of file `Makefile'

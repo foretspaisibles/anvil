@@ -13,11 +13,12 @@
 
 PACKAGE=		anvil
 OFFICER=		michipili@gmail.com
-VERSION=		0.2.0
+VERSION=		0.3.0
 
 MODULE=			shell.lib:subr
 MODULE+=		shell.prog:tool
 MODULE+=		shell.prog:git-extra
+MODULE+=		shell.prog:git-hooks
 MODULE+=		generic.files:files
 
 

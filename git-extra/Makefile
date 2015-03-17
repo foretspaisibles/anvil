@@ -12,6 +12,7 @@
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 
 PROGRAM=		git-recent.sh
+PROGRAM+=		git-releng.sh
 
 .include "shell.prog.mk"
 

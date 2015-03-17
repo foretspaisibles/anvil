@@ -35,12 +35,13 @@ anvil_init_help()
 Usage: ${PROGNAME} [options] directory
  Create new project
 Options:
+ -c Convert an existing project
  -h Print this help screen
 EOF
 }
 
 
-anvil_init_main()
+anvil_init_create()
 {
     mkdir -p "$1"\
         && cd "$1"\
@@ -49,6 +50,21 @@ anvil_init_main()
         && (build_job "bsdowl-autoconf" | build_process)
 }
 
-anvil_init_main "$@"
+anvil_init_convert()
+{
+    configuration_wizard
+}
+
+anvil_init_action='create'
+
+while getopts "ch" OPTION; do
+    case ${OPTION} in
+        c)	anvil_init_action='convert';;
+        h)	anvil_init_help; exit 0;;
+        *)	anvil_init_help; exit 64;;
+    esac
+done
+
+anvil_init_${anvil_init_action} "$@"
 
 ### End of file `anvil_init.sh'
