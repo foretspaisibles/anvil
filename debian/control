@@ -1,15 +1,21 @@
 Source: anvil
-Section: unknown
+Section: devel
 Priority: optional
 Maintainer: Michael Grünewald <michipili@gmail.com>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9), autoconf, bsdowl
 Standards-Version: 3.9.5
-Homepage: <insert the upstream URL, if relevant>
-#Vcs-Git: git://anonscm.debian.org/collab-maint/anvil.git
-#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/anvil.git;a=summary
+Homepage: https://github.com/michipili/anvil
+Vcs-Git: git://github.com/michipili/anvil.git
+Vcs-Browser: https://github.com/michipili/anvil/tree/debian
 
 Package: anvil
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, bsdowl
+Description: Software package assistant
+ This is Anvil, a software package assistant:
+ .
+ - It features repository filters handling whitespace and encodings.
+ - It features a sed-based respoitory filter.
+ - It features a nice pre-commit hook enforcing whitespace
+   and filename policies.
+ - It features an elementary git releng command.
