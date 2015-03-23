@@ -1,0 +1,9 @@
+Document: anvil
+Title: Debian anvil Manual
+Author: Michael Grünewald
+Abstract: This document describes what anvil is
+ and how it can be used when developing software.
+Section: unknown
+
+Format: text
+Files: /usr/share/doc/anvil/README.md
