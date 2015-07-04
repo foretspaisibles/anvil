@@ -18,7 +18,8 @@ repository.  Here are a few suggested starting points:
  - [Anvil revision history](./doc/AnvilRevisionHistory.md) – Rewrite Git revision history with specialised filters
  - [Anvil hooks](./doc/AnvilHooks.md) — Attach hooks to your git repository
  - [Anvil extra](./doc/AnvilExtra.md) — New git commands
-
+ - [Anvil maintainer](./doc/AnvilMaintainer.md) — Toolkit for package
+   maintainers.
 
 ## Example of file creation
 
