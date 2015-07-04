@@ -62,8 +62,32 @@ EOF
 }
 
 
+maintainer_action_shell()
+{
+    docker run\
+        --interactive=true\
+        --tty=true\
+        --rm=true\
+        --volume "${maintainer_pkgdir}:${maintainer_docker_pkgdir}"\
+        --volume "${maintainer_srcdir}:${maintainer_docker_srcdir}"\
+        --volume "${maintainer_confdir}:${maintainer_docker_confdir}"\
+        "${maintainer_repository}/${maintainer_image}"\
+        /bin/su -
+}
+
+
+maintainer_action_list()
+{
+}
+
+maintainer_action_build()
+{
+}
+
+
 ### PROCESSING OF COMMAND LINE ARGUMENTS
 
+: ${maintainer_repository:=@PACKAGE@}
 maintainer_action='shell'
 maintainer_config="${HOME}/.anvil/maintainer.conf"
 maintainer_confdir="${localstatedir}${packagedir}/conf"
