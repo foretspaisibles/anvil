@@ -50,4 +50,18 @@ failwith()
     exit 1
 }
 
+
+# tmpdir_initializer
+#  Create a temporary directory
+#
+# The path to that directory is saved in tmpdir. A hook is registered
+# to remove that directory upon program termination.
+
+tmpdir_initializer()
+{
+    tmpdir=$(mktemp -d -t "${PACKAGE}-XXXXXX")
+    trap 'rm -r -f "${tmpdir:?}"' INT TERM EXIT
+    export tmpdir
+}
+
 ### End of file `anvil_pervasives.sh'
