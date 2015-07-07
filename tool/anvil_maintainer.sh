@@ -78,10 +78,16 @@ maintainer_action_shell()
 
 maintainer_action_list()
 {
+    find "${anvildir}/maintainer"\
+      -maxdepth 1\
+      -mindepth 1\
+      -type d\
+      -exec basename '{}' ';'
 }
 
 maintainer_action_build()
 {
+    :
 }
 
 
