@@ -44,20 +44,9 @@ autoinstall_bsdowl()
     bmake install
 }
 
-
-autoinstall_opam()
+autoinstall_opam__db()
 {
-    local method package url
-
-    set -a
-    OPAMYES=1
-    OPAMVERBOSE=1
-    set +a
-
-    opam init
-    eval $(opam config env)
-
-    sed -n -e '
+        sed -n -e '
 1 {
   x
   s/^/default/
@@ -85,12 +74,57 @@ autoinstall_opam()
   G
   s/\(.*\)\n\(.*\)/\2|\1/
   p
-}' ./.travis.opam\
-        | (
-        while IFS='|' read method package url; do
-            autoinstall_opam__${method} "${package}"
-        done
-    )
+}' ./.travis.opam
+}
+
+autoinstall_opam__newest()
+{
+    opam switch list | awk '/^#/{next} $3 != "system" {a=$3} END{print a}'
+}
+
+autoinstall_opam__compiler()
+{
+    local newest
+
+    newest=$(autoinstall_opam__newest)
+    autoinstall_opam__db | awk -F '|' -v "newest=${newest}" '
+$1 == "compiler" {
+  v=1;
+  print($2);
+}
+
+END{
+  if(v==0){
+    print newest;
+  }
+}'
+}
+
+autoinstall_opam__package()
+{
+    autoinstall_opam__db | awk -F '|' '$1 != "compiler" {print}'
+}
+
+autoinstall_opam()
+{
+    local compiler method package url
+
+    set -a
+    OPAMYES=1
+    OPAMVERBOSE=1
+    set +a
+
+    opam init
+
+    for compiler in $(autoinstall_opam__compiler); do
+        opam switch ${compiler}
+        eval $(opam config env)
+        autoinstall_opam__package | (
+            while IFS='|' read method package url; do
+                autoinstall_opam__${method} "${package}"
+            done
+        )
+    done
 }
 
 autoinstall_opam__repository()
