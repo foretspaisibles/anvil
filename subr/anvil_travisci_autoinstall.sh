@@ -57,9 +57,40 @@ autoinstall_opam()
     opam init
     eval $(opam config env)
 
-    while IFS='|' read method package url; do
-        autoinstall_opam__${method} "${package}" "${url}"
-    done < ./.travis.opam
+    sed -n -e '
+1 {
+  x
+  s/^/default/
+  x
+}
+
+/^#/n
+
+/:$/ {
+  s/:$//
+  x
+  b
+}
+
+/^[a-z]*:.*/{
+  s/: */|/
+  p
+  s/|.*//
+  x
+  b
+}
+
+/^[[:space:]][[:space:]]-/ {
+  s/^[[:space:]]*-[[:space:]]*//
+  G
+  s/\(.*\)\n\(.*\)/\2|\1/
+  p
+}' ./.travis.opam\
+        | (
+        while IFS='|' read method package url; do
+            autoinstall_opam__${method} "${package}"
+        done
+    )
 }
 
 autoinstall_opam__repository()
@@ -69,13 +100,19 @@ autoinstall_opam__repository()
 
 autoinstall_opam__git()
 {
+    local package url
+
+    url="$1"
+    package="${1##*/}"
+    package="${package%.git}"
+
     set -a
     OPAMYES=1
     OPAMVERBOSE=1
     set +a
 
-    (cd "${srcdir}" && git clone "$2" "$1")\
-        && opam pin add "$1" "${srcdir}/$1"
+    (cd "${srcdir}" && git clone "${url}" "${package}")\
+        && opam pin add "${package}" "${srcdir}/${package}"
 }
 
 autoinstall_usage()
