@@ -146,7 +146,9 @@ autoinstall_opam__git()
     set +a
 
     (cd "${srcdir}" && git clone "${url}" "${package}")\
-        && opam pin add "${package}" "${srcdir}/${package}"
+        && (cd "${srcdir}/${package}"\
+                   && ( autoconf || true )\
+                   && opam pin add "${package}" .)
 }
 
 autoinstall_usage()
