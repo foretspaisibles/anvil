@@ -145,10 +145,23 @@ autoinstall_opam__git()
     OPAMVERBOSE=1
     set +a
 
-    (cd "${srcdir}" && git clone "${url}" "${package}")\
-        && (cd "${srcdir}/${package}"\
-                   && ( autoconf || true )\
-                   && opam pin add "${package}" .)
+    autoinstall_opam__git_clone "${url}" "${package}"\
+        && opam pin add "${package}" "${srcdir}/${package}"
+}
+
+autoinstall_opam__git_clone()
+{
+    local url package
+
+    url="$1"
+    package="$2"
+
+    if [ -d "${srcdir}/${package}" ]; then
+        return
+    else
+        (cd "${srcdir}" && git clone "${url}" "${package}")
+        (cd "${srcdir}/${package}" && autoconf) || true
+    fi
 }
 
 autoinstall_usage()
