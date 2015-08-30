@@ -35,7 +35,7 @@ EOF
 
 action_update()
 {
-    local version commitmesg program
+    local version commitmesg program opamfile
 
     version="$1"
     commitmesg="$2"
@@ -43,11 +43,19 @@ action_update()
 
     if [ -w 'Makefile' ]; then
         sed -i '' -e "${program}" 'Makefile'
+        git add 'Makefile'
     else
         return 1
     fi
 
-    git add 'Makefile'
+    program=$(printf '/^version/s/:.*/: "%s"/' "${version}")
+    for opamfile in 'opam/opam' 'opam'; do
+        if [ -f "${opamfile}" ] && [ -w "${opamfile}" ]; then
+            sed -i '' -e "${program}" "${opamfile}";
+            git add "${opamfile}"
+        fi
+    done
+
     git commit -m "${commitmesg}"
 }
 
