@@ -34,6 +34,11 @@ PREFIX?=		${prefix}
 EXEC_PREFIX?=		${exec_prefix}
 DATAROOTDIR?=		${datarootdir}
 
+ac_path_git=		@GIT@
+
+REPLACESUBST=		${STDREPLACESUBST}
+REPLACESUBST+=		ac_path_git
+
 # Local Variables:
 # mode: makefile
 # End:

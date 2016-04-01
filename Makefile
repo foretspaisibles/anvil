@@ -15,12 +15,12 @@ PACKAGE=		anvil
 OFFICER=		michipili@gmail.com
 VERSION=		0.3.0-current
 
-MODULE=			shell.lib:subr
+MODULE=			ocaml.prog:src
+MODULE+=		shell.lib:subr
 MODULE+=		shell.prog:tool
 MODULE+=		shell.prog:git-extra
 MODULE+=		shell.prog:git-hooks
 MODULE+=		generic.files:files
-
 
 CONFIGURE=		Makefile.config.in
 CONFIGURE+=		subr/anvil_autoconf.sh.in
