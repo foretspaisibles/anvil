@@ -102,39 +102,26 @@ let importdb workdir db =
   |> join
   |> run_unsafe
 
-let to_list convert rows =
-  S.map convert rows
-  |> S.to_list
-  >|= dist
-  |> join
-  |> run_unsafe
-
 let list db =
-  let convert = function
-    | [| TEXT(name) |] -> return name
-    | _ -> error("Anvil_License.list","Protocol mismatch.")
-  in
-  query (statement "SELECT name FROM license_index") db
-  |> to_list convert
+  Anvil_Database.query
+    "SELECT name FROM license_index"
+    (function
+      | [| TEXT(name) |] -> return name
+      | _ -> error("Anvil_License.list","Protocol mismatch."))
+    db
 
 let files name db =
-  let convert = function
-    | [| TEXT(filename); BLOB(contents) |] -> return(name, contents)
-    | _ -> error("Anvil_License.files","Protocol mismatch.")
-  in
-  query ~binding:["name", TEXT(name)]
-    (statement "SELECT (filename, content) FROM license_file WHERE name = $name")
+  Anvil_Database.query ~binding:["name", TEXT(name)]
+    "SELECT (filename, content) FROM license_file WHERE name = $name"
+    (function
+      | [| TEXT(filename); BLOB(contents) |] -> return(name, contents)
+      | _ -> error("Anvil_License.files","Protocol mismatch."))
     db
-  |> to_list convert
 
 let blob name db =
-  let convert = function
-    | [| BLOB(blob); |] -> return blob
-    | _ -> error("Anvil_License.blob","Protocol mismatch.")
-  in
-  query ~binding:["name", TEXT(name)]
-    (statement "SELECT blob FROM license_blob WHERE name = $name")
+  Anvil_Database.get ~binding:["name", TEXT(name)]
+    "SELECT blob FROM license_blob WHERE name = $name"
+    (function
+      | [| BLOB(blob); |] -> return blob
+      | _ -> error("Anvil_License.blob","Protocol mismatch."))
     db
-  |> one
-  >>= convert
-  |> run_unsafe

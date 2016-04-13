@@ -56,3 +56,25 @@ let find workdir path =
       >>= fun contents -> Lwt.return (filename, contents))
   |> Lwt_stream.to_list
   |> Lwt_main.run
+
+
+(* Simplified queries *)
+
+let rows_to_list convert rows =
+  let open Lemonade_Sqlite.Infix in
+  S.map convert rows
+  |> S.to_list
+  >|= dist
+  |> join
+  |> run_unsafe
+
+let get ?binding sql convert db =
+  let open Lemonade_Sqlite.Infix in
+  query ?binding (statement sql) db
+  |> one
+  >>= convert
+  |> run_unsafe
+
+let query ?binding sql convert db =
+  query ?binding (statement sql) db
+  |> rows_to_list convert

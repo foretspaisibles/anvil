@@ -34,3 +34,12 @@ val importdb : (module S) list -> string -> Lemonade_Sqlite.handle -> unit
 val find : string -> string -> (string * string) list
 (** [find workdir path] return the list of files under [path] paired with
     their contents. *)
+
+val query : ?binding:Lemonade_Sqlite.binding ->
+  string -> (Lemonade_Sqlite.row -> 'a Lemonade_Sqlite.t) -> Lemonade_Sqlite.handle -> 'a list
+(** [query convert sql db] retrieve the list matching the request [sql]. *)
+
+val get : ?binding:Lemonade_Sqlite.binding ->
+  string -> (Lemonade_Sqlite.row -> 'a Lemonade_Sqlite.t) -> Lemonade_Sqlite.handle -> 'a
+(** [get convert sql db] retrieve the item matching the request
+    [sql]. An error is triggered if several items are returned from the database. *)
