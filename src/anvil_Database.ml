@@ -41,3 +41,18 @@ let importdb lst path db =
     M.importdb path db
   in
   List.iter loop lst
+
+(* Scanning directories for import jobs *)
+
+let file_contents ?workdir filename =
+  Rashell_Command.(exec_utility (command ?workdir ("", [| "cat"; filename |])))
+
+let find workdir path =
+  Rashell_Posix.(find ~workdir (Has_kind S_REG) [path])
+  |> Lwt_stream.map_s
+    (function filename ->
+      let open Lwt.Infix in
+      file_contents ~workdir filename
+      >>= fun contents -> Lwt.return (filename, contents))
+  |> Lwt_stream.to_list
+  |> Lwt_main.run

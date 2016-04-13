@@ -56,15 +56,11 @@ CREATE TABLE license_blob (
   blob BLOB
 )|sql}
 
-let file_contents ?workdir filename =
-  Rashell_Command.(exec_utility (command ?workdir ("", [| "cat"; filename |])))
-
-
 let importdb_job workdir =
-  let ( / ) = Filename.concat in
-  Rashell_Posix.(find ~workdir (Has_kind S_REG) ["./license"])
-  |> Lwt_stream.map (string_split '/')
-  |> Lwt_stream.map
+  let split name =
+    string_split '/' name
+  in
+  let convert =
     (function
       | [ "."; "license"; license; filename ] ->
           (license, filename)
@@ -72,13 +68,17 @@ let importdb_job workdir =
           ksprintf failwith "Anvil_License.importdb: %s: %s: Bad directory structure."
             workdir
             (String.concat "/" whatever))
-  |> Lwt_stream.map_s
-    (function (license, filename) ->
-      let open Lwt.Infix in
-      file_contents ~workdir ("." / "license" / license / filename)
-      >>= fun contents -> Lwt.return (license, filename, contents))
-  |> Lwt_stream.to_list
-  |> Lwt_main.run
+  in
+  let list_map_first f lst =
+    List.map (fun (x, y) -> (f x, y)) lst
+  in
+  let recombine ((a,b),c) =
+    (a,b,c)
+  in
+  Anvil_Database.find workdir "./license"
+  |> list_map_first split
+  |> list_map_first convert
+  |> List.map recombine
 
 let importdb workdir db =
   let actually_insert (license, filename, contents) () =

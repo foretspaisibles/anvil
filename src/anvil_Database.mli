@@ -30,3 +30,7 @@ val initdb : (module S) list -> Lemonade_Sqlite.handle -> unit
 val importdb : (module S) list -> string -> Lemonade_Sqlite.handle -> unit
 (** [importdb modules path db] import data found in [path] in the [db]
     for the given [modules]. *)
+
+val find : string -> string -> (string * string) list
+(** [find workdir path] return the list of files under [path] paired with
+    their contents. *)
