@@ -78,3 +78,7 @@ let get ?binding sql convert db =
 let query ?binding sql convert db =
   query ?binding (statement sql) db
   |> rows_to_list convert
+
+let insert program db =
+  insert program db
+  |> run_unsafe

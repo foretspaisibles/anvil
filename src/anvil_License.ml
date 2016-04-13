@@ -81,26 +81,38 @@ let importdb_job workdir =
   |> List.map recombine
 
 let importdb workdir db =
-  let actually_insert (license, filename, contents) () =
-    exec ~binding:[
-      "$license", TEXT(license);
-      "$filename", TEXT(filename);
-      "$contents", BLOB(contents);
-      "$description", TEXT(Rashell_Command.chomp contents);
-    ] (statement (
-        if filename = "blob" then
-          "INSERT OR REPLACE INTO license_blob (name, blob) VALUES ($license, $contents)"
-        else if filename = "description" then
-          "INSERT OR REPLACE INTO license_index (name, description) VALUES ($license, $description)"
-        else
-          "DELETE FROM license_file WHERE name = $license AND filename = $filename; INSERT INTO license_file (name, filename, contents) VALUES($license, $filename, $contents)"))
-      db
+  let has_filename name (_, filename, _) =
+    filename = name
   in
-  importdb_job workdir
-  |> S.of_list
-  |> (fun s -> S.fold (fun x m -> bind m (actually_insert x)) s (return ()))
-  |> join
-  |> run_unsafe
+  let bindings lst =
+    bindings [
+      "$license", (fun (license, _, _) -> TEXT(license));
+      "$filename", (fun (_, filename, _) -> TEXT(filename));
+      "$contents", (fun (_ , _, contents) -> BLOB(contents));
+      "$description", (fun (_ , _, contents) -> TEXT(Rashell_Command.chomp contents));
+    ] lst
+  in
+  let program lst =
+    S.concat (S.of_list [
+        bindings_apply
+          (bindings (S.filter (has_filename "blob") lst))
+          (statement "INSERT OR REPLACE INTO license_blob (name, blob) VALUES ($license, $contents)");
+
+        bindings_apply
+          (bindings (S.filter (has_filename "description") lst))
+          (statement "INSERT OR REPLACE INTO license_index (name, description) VALUES ($license, $description)");
+
+        bindings_apply
+          (bindings (S.filter (fun x -> not(has_filename "description" x || has_filename "blob" x)) lst))
+          (statement "DELETE FROM license_file WHERE name = $license AND filename = $filename; INSERT INTO license_file (name, filename, contents) VALUES($license, $filename, $contents)");
+
+      ])
+  in
+  Anvil_Database.insert begin
+    importdb_job workdir
+    |> S.of_list
+    |> program
+  end db
 
 let list db =
   Anvil_Database.query

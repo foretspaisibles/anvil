@@ -43,3 +43,6 @@ val get : ?binding:Lemonade_Sqlite.binding ->
   string -> (Lemonade_Sqlite.row -> 'a Lemonade_Sqlite.t) -> Lemonade_Sqlite.handle -> 'a
 (** [get convert sql db] retrieve the item matching the request
     [sql]. An error is triggered if several items are returned from the database. *)
+
+val insert : Lemonade_Sqlite.statement Lemonade_Sqlite.S.t -> Lemonade_Sqlite.handle -> unit
+(** [insert program db] execute in sequence the statements provided by [program]. *)
