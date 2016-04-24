@@ -35,6 +35,7 @@ struct
 
   let module_lst = [
     (module Anvil_License : Anvil_Database.S);
+    (module Anvil_Build : Anvil_Database.S);
   ]
 
   let initdb () =
@@ -54,7 +55,7 @@ let run_index arglist =
 let run_initdb arglist =
   Component_Database.initdb ()
 
-let run_import arglist =
+let run_importdb arglist =
   List.iter Component_Database.importdb arglist
 
 let () =
@@ -62,4 +63,4 @@ let () =
     "[-h]"
     "Initialise a project"
     ~configuration:Application.Configuration.Command_line
-    run_import
+    run_importdb

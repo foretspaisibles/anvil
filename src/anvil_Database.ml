@@ -14,6 +14,12 @@
 open Printf
 open Lemonade_Sqlite
 
+let debug label f x =
+  Format.fprintf Format.str_formatter "DEBUG: %s: %a"
+    label f x;
+  Printf.eprintf "%s\n%!" (Format.flush_str_formatter ())
+
+
 module type S =
 sig
   val initdb : string
@@ -38,9 +44,11 @@ let initdb lst db =
 let importdb lst path db =
   let loop m =
     let module M = (val m : S) in
-    M.importdb path db
+    M.importdb path db;
+    debug "Anvil_Database.importdb" Lemonade_Sqlite.pp_print_handle db
   in
   List.iter loop lst
+
 
 (* Scanning directories for import jobs *)
 
