@@ -14,6 +14,11 @@
 open Printf
 open Str
 
+let debug label f x =
+  Format.fprintf Format.str_formatter "DEBUG: %s: %a"
+    label f x;
+  Printf.eprintf "%s\n%!" (Format.flush_str_formatter ())
+
 let variable_re =
   regexp "\\${\\([a-zA-Z0-9_]*\\)}"
 
@@ -40,7 +45,7 @@ let install_file path contents =
 
 let replace env contents =
   let maybe_blob =
-    try Some(List.assoc _license_ident env)
+    try Some(List.assoc _license_blob_ident env)
     with Not_found -> None
   in
   let contents =

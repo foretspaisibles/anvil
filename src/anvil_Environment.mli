@@ -16,3 +16,6 @@ type t = (string * string) list
 
 val make : Anvil_Index.t -> Lemonade_Sqlite.handle -> t
 (** Compute the environment for variable expansion associated to an index. *)
+
+val pp_print : Format.formatter -> t -> unit
+(** Pretty-printer environments. *)

@@ -34,3 +34,9 @@ let make index db =
      :: ("YEAR", string_of_int year)
      :: (Anvil_Index.env index))
     db
+
+let pp_print ff env =
+  let pp_print_prop ff (key, value) =
+    Format.fprintf ff "@[<hv 1>(%S,@ %S)@]" key value
+  in
+  Lemonade_List.pp_print pp_print_prop ff env

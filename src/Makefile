@@ -21,8 +21,8 @@ SRCS+=			anvil_License.ml
 SRCS+=			anvil_Build.ml
 SRCS+=			anvil_Wizard.ml
 SRCS+=			anvil_Text.ml
-SRCS+=			anvil_File.ml
 SRCS+=			anvil_Environment.ml
+SRCS+=			anvil_File.ml
 SRCS+=			anvil_Init.ml
 
 EXTERNAL=		ocaml.findlib:gasoline
