@@ -14,5 +14,18 @@
 val topleveldir : ?workdir:string -> unit -> string
 (** Show the absolute path of the top-level directory. *)
 
-val config : ?workdir:string -> string -> string option
-(** Retrieve the value associated to the configuration key. *)
+val config_find : ?workdir:string -> string -> string
+(** Retrieve the value associated to the configuration key.
+
+@raise [Failure] when an error condition is met. *)
+
+val config_add : ?workdir:string -> string -> string -> unit
+(** Add a value associated to a configuration key.
+
+@raise [Failure] when an error condition is met. *)
+
+
+val init : ?workdir:string -> string -> unit
+(** Initialise a repository with the given name.
+
+@raise [Failure] when an error condition is met. *)

@@ -35,12 +35,10 @@ let string_split delim s =
   add ();
   List.rev(Queue.fold (fun ax item -> item :: ax) [] q)
 
-let initdb = {sql|DROP TABLE IF EXISTS build_index;
-CREATE TABLE build_index (
+let initdb = {sql|CREATE TABLE build_index (
   name TEXT PRIMARY KEY,
   description TEXT
 );
-DROP TABLE IF EXISTS build_file;
 CREATE TABLE build_file (
   name TEXT,
   filename TEXT,
@@ -109,9 +107,9 @@ let list db =
     db
 
 let files name db =
-  Anvil_Database.query ~binding:["name", TEXT(name)]
-    "SELECT (filename, content) FROM build_file WHERE name = $name"
+  Anvil_Database.query ~binding:["$name", TEXT(name)]
+    "SELECT filename, contents FROM build_file WHERE name = $name"
     (function
-      | [| TEXT(filename); BLOB(contents) |] -> return(name, contents)
+      | [| TEXT(filename); BLOB(contents) |] -> return(filename, contents)
       | _ -> error("Anvil_Build.files","Protocol mismatch."))
     db

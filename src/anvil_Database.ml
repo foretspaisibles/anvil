@@ -45,7 +45,6 @@ let importdb lst path db =
   let loop m =
     let module M = (val m : S) in
     M.importdb path db;
-    debug "Anvil_Database.importdb" Lemonade_Sqlite.pp_print_handle db
   in
   List.iter loop lst
 

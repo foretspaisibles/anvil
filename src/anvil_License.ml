@@ -39,18 +39,15 @@ let string_split delim s =
   add ();
   List.rev(Queue.fold (fun ax item -> item :: ax) [] q)
 
-let initdb = {sql|DROP TABLE IF EXISTS license_index;
-CREATE TABLE license_index (
+let initdb = {sql|CREATE TABLE license_index (
   name TEXT PRIMARY KEY,
   description TEXT
 );
-DROP TABLE IF EXISTS license_file;
 CREATE TABLE license_file (
   name TEXT,
   filename TEXT,
   contents BLOB
 );
-DROP TABLE IF EXISTS license_blob;
 CREATE TABLE license_blob (
   name TEXT PRIMARY KEY,
   blob BLOB
@@ -122,15 +119,15 @@ let list db =
     db
 
 let files name db =
-  Anvil_Database.query ~binding:["name", TEXT(name)]
-    "SELECT (filename, content) FROM license_file WHERE name = $name"
+  Anvil_Database.query ~binding:["$name", TEXT(name)]
+    "SELECT filename, contents FROM license_file WHERE name = $name"
     (function
-      | [| TEXT(filename); BLOB(contents) |] -> return(name, contents)
+      | [| TEXT(filename); BLOB(contents) |] -> return(filename, contents)
       | _ -> error("Anvil_License.files","Protocol mismatch."))
     db
 
 let blob name db =
-  Anvil_Database.get ~binding:["name", TEXT(name)]
+  Anvil_Database.get ~binding:["$name", TEXT(name)]
     "SELECT blob FROM license_blob WHERE name = $name"
     (function
       | [| BLOB(blob); |] -> return blob

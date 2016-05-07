@@ -14,36 +14,105 @@
 module Maybe =
   Lemonade_Maybe
 
-type t = {
-  package: string; (* Package name *)
-  vendorname: string; (* Vendor name *)
-  author: string; (* Author Name *)
-  officer: string; (* GPG identity of the release officer *)
-  url: string; (* Package URL *)
-  license: string; (* License name *)
+module PropertyList =
+  Map.Make(String)
+
+type t = string PropertyList.t
+
+type prop = {
+  name: string;
+  display_name: string;
+  description: string;
 }
 
-let from_repository workdir =
-  let get key =
-    match Anvil_Git.config ~workdir ("anvil."^key) with
-    | Some(x) -> x
-    | None -> raise Exit
-  in try Some {
-    package = get "package";
-    vendorname = get "vendorname";
-    author = get "author";
-    officer = get "officer";
-    url = get "url";
-    license = get "license";
-    }
-  with Exit -> None
+let find prop index =
+  PropertyList.find prop.name index
 
-let pp_print_index fmt index =
-  Format.fprintf fmt
-    "{@[@ package = %S;@ vendorname = %S;@ author = %S;@ officer = %S;@ url = %S;@ licence = %S;@]}"
-    index.package
-    index.vendorname
-    index.author
-    index.officer
-    index.url
-    index.license
+let package = {
+  name = "package";
+  display_name = "Package name";
+  description = "The name of the software package, it should be a valid \
+                 UNIX file name.";
+}
+
+let vendorname = {
+  name = "vendorname";
+  display_name = "Vendor name";
+  description = "The name used to refer to the package, \
+                 for instance in the documentation.";
+}
+
+let author = {
+  name = "author";
+  display_name = "Author name";
+  description = "The name of the author of the software package, \
+                 as used in copyright notices.";
+}
+
+let officer = {
+  name = "officer";
+  display_name = "Release officer";
+  description = "The release officer signing the release artefacts, \
+                 it must be a valid GPG-key handle.";
+}
+
+let url = {
+  name = "url";
+  display_name = "Package URL";
+  description = "The URL of the software package website.";
+}
+
+let license = {
+  name = "license";
+  display_name = "License";
+  description = "The license under which the software package is distributed.";
+}
+
+let build = {
+  name = "build";
+  display_name = "Build System";
+  description = "The build system used to generate artefacts for the software package.";
+}
+
+let properties = [
+  package;
+  vendorname;
+  author;
+  officer;
+  url;
+  license;
+  build;
+]
+
+let make f =
+  List.fold_right
+    (fun (k,v) m -> PropertyList.add k v m)
+    (List.map (fun prop -> (prop.name, f prop)) properties)
+    PropertyList.empty
+
+let input workdir =
+  let read prop =
+    Anvil_Git.config_find ~workdir ("anvil."^prop.name)
+  in
+  make read
+
+let output workdir index =
+  let write prop =
+    Anvil_Git.config_add ~workdir
+      ("anvil."^prop.name)
+      (find prop index)
+  in
+  List.iter write properties
+
+
+let env index =
+  List.map
+    (fun prop -> (String.uppercase prop.name, find prop index))
+    properties
+
+let pp_print_index ff index =
+  let pp_print_prop ff prop =
+    Format.fprintf ff "@[<hv 1>(%S,@ %S)@]"
+      prop.name (find prop index)
+  in
+  Lemonade_List.pp_print pp_print_prop ff properties

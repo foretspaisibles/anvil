@@ -1,7 +1,6 @@
 ### @autoconf_input@
 
-ANVIL_RCS_KEYWORDS()dnl
-ANVIL_LICENSE_BLOB()dnl
+# ${ANVIL_LICENSE}
 
 prefix?=		@prefix@
 exec_prefix?=		@exec_prefix@

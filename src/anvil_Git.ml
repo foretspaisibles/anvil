@@ -36,9 +36,24 @@ let query ?workdir argv =
 let topleveldir ?workdir () =
   utility ?workdir [| "rev-parse"; "--show-toplevel" |]
 
-let config ?workdir key =
+let config_find ?workdir key =
   let t =
     exec_utility ~chomp:true (git_command ?workdir [| "config"; key |])
   in
-  try Some(Lwt_main.run t)
-  with Error(_, WEXITED(1),_) -> None
+  supervise t
+
+let config_add ?workdir key value =
+  let t =
+    let open Lwt.Infix in
+    exec_utility ~chomp:true (git_command ?workdir [| "config"; key; value |])
+    >|= ignore
+  in
+  supervise t
+
+let init ?workdir repo =
+  let t =
+    let open Lwt.Infix in
+    exec_utility ~chomp:true (git_command ?workdir [| "init"; repo |])
+    >|= ignore
+  in
+  supervise t
