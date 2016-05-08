@@ -56,18 +56,10 @@ struct
       @ get Anvil_License.files Anvil_Index.license db
     end
 
-  let blob env =
-    let _license_ident = "LICENSE" in
-    if List.mem_assoc _license_ident env then
-      let license_blob =
-        Anvil_Database.withdb (Configuration.filename()) begin fun db ->
-          Anvil_License.blob (List.assoc _license_ident env) db
-        end
-      in
-      (_license_ident, Rashell_Command.chomp license_blob)
-      :: (List.remove_assoc _license_ident env)
-    else
-      env
+  let env index =
+    Anvil_Database.withdb
+      (Configuration.filename())
+      (Anvil_Environment.make index)
 end
 
 
@@ -108,16 +100,6 @@ struct
         "Convert an existing repository instead of performing the normal action."
   end
 
-  let env index =
-    let now = Rashell_Timestamp.now() in
-    let year =
-      1900 + (Rashell_Timestamp.to_unix now).Unix.tm_year
-    in
-    Component_Database.blob
-      (("TIMESTAMP", Rashell_Timestamp.to_string now)
-       :: ("YEAR", string_of_int year)
-       :: (Anvil_Index.env index))
-
   let convert = function
     | [repo] ->
         Anvil_Index.output repo (Anvil_Wizard.run())
@@ -129,7 +111,7 @@ struct
         let index = Anvil_Wizard.run () in
         Anvil_Git.init repo;
         Anvil_File.populate
-          (env index)
+          (Component_Database.env index)
           repo
           (Component_Database.files index);
         Anvil_Index.output repo index

@@ -1,6 +1,6 @@
 ### @autoconf_input@
 
-# ${ANVIL_LICENSE}
+# ${ANVIL_LICENSE_BLOB}
 
 prefix?=		@prefix@
 exec_prefix?=		@exec_prefix@

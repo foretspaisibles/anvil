@@ -20,6 +20,7 @@ let variable_re =
 let _perm_dir = 0o770
 let _perm_file = 0o660
 let _license_ident = "LICENSE"
+let _license_blob_ident = "LICENSE_BLOB"
 
 let install_dir path =
   Unix.mkdir path _perm_dir
@@ -44,7 +45,7 @@ let replace env contents =
   in
   let contents =
     match maybe_blob with
-    | Some(blob) -> Anvil_Text.replace_license "LICENSE" blob contents
+    | Some(blob) -> Anvil_Text.replace_license _license_blob_ident blob contents
     | None -> contents
   in
   Anvil_Text.replace_text env contents

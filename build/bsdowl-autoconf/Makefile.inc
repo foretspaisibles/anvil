@@ -1,6 +1,6 @@
 ### Makefile.inc -- Project ${ANVIL_VENDORNAME}
 
-# ${ANVIL_LICENSE}
+# ${ANVIL_LICENSE_BLOB}
 
 # Local Variables:
 # mode: makefile
