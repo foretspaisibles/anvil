@@ -66,4 +66,4 @@ let ac_path_git =
   "@ac_path_git@"
 
 let ac_resource_db =
-  "@localstatedir@" / "db" / ac_package
+  "@ac_resource_db@"

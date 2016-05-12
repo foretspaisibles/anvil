@@ -25,6 +25,13 @@ MODULE+=		generic.files:files
 CONFIGURE=		Makefile.config.in
 CONFIGURE+=		subr/anvil_autoconf.sh.in
 
+db-init:
+	rm -f ${ac_resource_db}
+	${.OBJDIR}/src/anvil_init -I
+
+db-import:
+	${.OBJDIR}/src/anvil_init -J ${.CURDIR}
+
 .include "generic.project.mk"
 
 ### End of file `Makefile'
