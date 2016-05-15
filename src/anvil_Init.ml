@@ -36,7 +36,8 @@ struct
 
   let module_lst = [
     (module Anvil_License : Anvil_Database.S);
-    (module Anvil_Build : Anvil_Database.S)
+    (module Anvil_Build : Anvil_Database.S);
+    (module Anvil_Template : Anvil_Database.S)
   ]
 
   let initdb () =

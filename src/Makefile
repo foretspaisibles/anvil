@@ -19,6 +19,7 @@ SRCS+=			anvil_Database.ml
 SRCS+=			anvil_Index.ml
 SRCS+=			anvil_License.ml
 SRCS+=			anvil_Build.ml
+SRCS+=			anvil_Template.ml
 SRCS+=			anvil_Wizard.ml
 SRCS+=			anvil_Text.ml
 SRCS+=			anvil_Environment.ml
