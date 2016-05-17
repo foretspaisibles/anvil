@@ -18,8 +18,7 @@ We initialise a new repository using the following command:
 ```
 
 This creates a new directory, initialises it as a git repository and
-populates it with a few infrastructure related files, like a minimal
-configure script.
+populates it with files associated with the selected build-system.
 
 This command is interactive and asks a few questions.  The answers to
 these questions are saved in the section `anvil` of the git
@@ -27,18 +26,42 @@ configuration of the repository.  It is possible to convert a pre-existing
 repository just by running `anvil_init -c` at the toplevel directory
 of this repository.
 
+The following fields must be supplied:
+
+1. Package name (*package*) - The name of the software package, it
+   should be a valid UNIX file name.
+
+2. Vendor name (*vendorname*) - The name used to refer to the package,
+   for instance in the documentation.
+
+3. Author name (*author*) - The name of the author of the software
+   package, as used in copyright notices.
+
+4. Release officer (*officer*) - The release officer signing the
+   release artefacts, it must be a valid GPG-key handle.
+
+5. Package URL (*url*) - The URL of the software package website.
+
+6. License (*license*) - The license under which the software package
+   is distributed. The valid choices are `MIT` and `CeCILL-B`.
+
+7. Build System (*build*) - The build system used to generate
+   artefacts for the software package. The only valid choice is
+   `bsdowl-autoconf`.
+
 
 ## Create a new file following a template
 
-The template is mistly useful to put a consistent license header, with
+The template is mostly useful to put a consistent license header, with
 project name, URL and everything.  This only works on the repository
 of a package supporting **Anvil** features.
 
 
-We print a new `shell` file using the following command:
+We instantiate a new `shell` file using the following command:
 
 ```console
-% anvil_template -p shell anvil_tool.sh 'Another tool in the Anvil suite'
+% anvil_template -t shell -D 'Another tool in the Anvil suite' anvil_tool.sh
+% cat anvil_tool.sh
 ### anvil_tool.sh -- Another tool in the Anvil suite
 
 # Anvil (https://github.com/michipili/anvil)
@@ -55,22 +78,12 @@ We print a new `shell` file using the following command:
 ### End of file `anvil_tool.sh'
 ```
 
-We can create the file with the following command:
-
-```console
-% anvil_template -p shell anvil_tool.sh 'Another tool in the Anvil suite'\
-    anvil_tool.sh
-```
-
-Note that the name of the file appears two times, which is redundant
-and should be changed in a future release.
-
-
 We can list available templates:
 
 ```console
 % anvil_template -l
-        Makefile -- Makefile
-           shell -- Shell script or library
-  shell_autoconf -- Autoconf shell configuration
+        Makefile  A minimal Makefile
+           ocaml  A simple OCaml file
+           shell  A minimal shell script
+  shell_autoconf  A shell script with autoconf directory names
 ```
