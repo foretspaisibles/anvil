@@ -31,8 +31,8 @@ SRCS+=			component_Database.ml
 SRCS.anvil_init=	${SRCS}
 SRCS.anvil_init+=	program_Init.ml
 
-SRCS.anvil_create=	${SRCS}
-SRCS.anvil_create+=	program_Template.ml
+SRCS.anvil_template=	${SRCS}
+SRCS.anvil_template+=	program_Template.ml
 
 EXTERNAL=		ocaml.findlib:gasoline
 EXTERNAL+=		ocaml.findlib:lemonade
