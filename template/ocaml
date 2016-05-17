@@ -1,0 +1,5 @@
+Description: A simple OCaml file
+
+(* ${ANVIL_FILENAME:CX} -- ${ANVIL_DESCRIPTION}
+
+   ${ANVIL_LICENSE_BLOB} *)
