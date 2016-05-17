@@ -15,6 +15,7 @@
 AC_INIT([subr/anvil_autoconf.sh.in])
 AC_CONFIG_FILES([subr/anvil_autoconf.sh])
 AC_CONFIG_FILES([Makefile.config])
+AC_PATH_PROG_REQUIRE([GIT], [git])
 AC_OUTPUT
 
 ### End of file `configure.ac'

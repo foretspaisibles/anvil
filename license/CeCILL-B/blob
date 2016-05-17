@@ -1,7 +1,7 @@
-ANVIL_VENDORNAME (ANVIL_URL)
-This file is part of ANVIL_VENDORNAME
+${ANVIL_VENDORNAME} (${ANVIL_URL})
+This file is part of ${ANVIL_VENDORNAME}
 
-Copyright © ANVIL_YEAR ANVIL_AUTHOR
+Copyright © ${ANVIL_YEAR} ${ANVIL_AUTHOR}
 
 This file must be used under the terms of the CeCILL-B.
 This source file is licensed as described in the file COPYING, which
