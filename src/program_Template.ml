@@ -1,4 +1,4 @@
-(* Program_Creat -- Instantiate template
+(* Program_Template -- Instantiate template
 
    Anvil (https://github.com/michipili/anvil)
    This file is part of Anvil
