@@ -14,14 +14,11 @@
 module Sqlite =
   Lemonade_Sqlite
 
-val list : Sqlite.handle -> string list
+val list : Sqlite.handle -> (string * string) list
 (** List available templates. *)
 
-val describe : string -> Sqlite.handle -> string
-(** Describe the given template. *)
-
-val files : string -> Sqlite.handle -> (string * string) list
-(** The template files, as filenames and their contents.
+val contents : string -> Sqlite.handle -> string
+(** The template contents.
 
 @raise Failure if the given template is not known. *)
 

@@ -128,24 +128,16 @@ let importdb workdir db =
 
 let list db =
   Anvil_Database.query
-    "SELECT name FROM template_index"
+    "SELECT name, description FROM template_index"
     (function
-      | [| TEXT(name) |] -> return name
+      | [| TEXT(name); TEXT(description) |] -> return (name, description)
       | _ -> error("Anvil_Template.list","Protocol mismatch."))
     db
 
-let files name db =
-  Anvil_Database.query ~binding:["$name", TEXT(name)]
-    "SELECT filename, contents FROM template_file WHERE name = $name"
-    (function
-      | [| TEXT(filename); BLOB(contents) |] -> return(filename, contents)
-      | _ -> error("Anvil_Template.files","Protocol mismatch."))
-    db
-
-let describe name db =
+let contents name db =
   Anvil_Database.get ~binding:["$name", TEXT(name)]
-    "SELECT description FROM template_index WHERE name = $name"
+    "SELECT contents FROM template_file WHERE name = $name"
     (function
-      | [| TEXT(description) |] -> return description
+      | [| BLOB(contents) |] -> return contents
       | _ -> error("Anvil_Template.files","Protocol mismatch."))
     db

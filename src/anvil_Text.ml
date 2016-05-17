@@ -15,7 +15,7 @@ open Printf
 open Str
 
 let variable_re =
-  regexp "\\${ANVIL_\\([a-zA-Z0-9_]*\\)}"
+  regexp "\\${ANVIL_\\([a-zA-Z0-9_]*\\)\\(:\\([CLUX]*\\)\\)?}"
 
 let license_re ident =
   ksprintf regexp "^\\(.*\\)\\${ANVIL_%s}\\(.*\\)$" ident
@@ -42,9 +42,37 @@ let replace_license ident blob s =
   in
   global_substitute (license_re ident) f s
 
+let transformation_table = [
+  'C', String.capitalize;
+  'L', String.lowercase;
+  'U', String.uppercase;
+  'X', Filename.chop_extension;
+]
+
+let string_fold f s ax =
+  let current = ref ax in
+  for i = 0 to String.length s - 1 do
+    current := f s.[i] !current
+  done;
+  !current
+
+let transform code s =
+  let loop c s =
+    let f =
+      try List.assoc c transformation_table
+      with Not_found -> ksprintf failwith "Anvil_Text: %c: Unknown tranformation code." c
+    in
+    f s
+  in
+  string_fold loop code s
+
 let replace_text env s =
   let f m =
-    try List.assoc (matched_group 1 s) env
-    with _ -> (matched_string m)
+    let code =
+      try matched_group 3 s
+      with Not_found -> ""
+    in
+    try transform code (List.assoc (matched_group 1 s) env)
+    with Not_found -> (matched_string m)
   in
   global_substitute variable_re f s

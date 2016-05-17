@@ -1,4 +1,4 @@
-(* Anvil_Init -- Initialise a project
+(* Program_Init -- Initialise a project
 
    Anvil (https://github.com/michipili/anvil)
    This file is part of Anvil
@@ -14,61 +14,12 @@
 module Application =
   Gasoline_Plain_Application
 
-
-module Component_Database =
-struct
-
-  let comp =
-    Application.Component.make
-      ~name:"database"
-      ~description:"Database parameters"
-      ()
-
-  module Configuration =
-  struct
-    open Application.Configuration
-
-    let filename =
-      make_string comp ~flag:'f'
-        "filename" Anvil_Configuration.ac_resource_db
-        "The filename of the application database"
-  end
-
-  let module_lst = [
-    (module Anvil_License : Anvil_Database.S);
-    (module Anvil_Build : Anvil_Database.S);
-    (module Anvil_Template : Anvil_Database.S)
-  ]
-
-  let initdb () =
-    Anvil_Database.withdb (Configuration.filename())
-      (Anvil_Database.initdb module_lst)
-
-  let importdb path =
-    Anvil_Database.withdb (Configuration.filename())
-      (Anvil_Database.importdb module_lst path)
-
-  let files index =
-    let get f prop db =
-      f (Anvil_Index.(find prop index)) db
-    in
-    Anvil_Database.withdb (Configuration.filename()) begin fun db ->
-      get Anvil_Build.files Anvil_Index.build db
-      @ get Anvil_License.files Anvil_Index.license db
-    end
-
-  let env index =
-    Anvil_Database.withdb
-      (Configuration.filename())
-      (Anvil_Environment.make index)
-end
-
-
 module Component_Main =
 struct
 
   let comp =
     Application.Component.make
+      ~require:["database"]
       ~name:"main"
       ~description:"The main component of our application"
       ()
