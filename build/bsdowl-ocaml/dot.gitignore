@@ -1,0 +1,11 @@
+# dot.gitignore -- Files ignored by git for ${ANVIL_VENDORNAME}
+
+#
+# Autoconf files
+#
+autom4te.cache/
+config.log
+config.status
+configure
+Makefile.config
+.product

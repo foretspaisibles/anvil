@@ -1,0 +1,33 @@
+opam-version: "1.2"
+maintainer: "${ANVIL_OFFICER}"
+authors: "${ANVIL_AUTHOR}"
+version: "0.1.0-current"
+license: "${ANVIL_LICENSE}"
+homepage: "${ANVIL_URL}"
+bug-reports: "${ANVIL_URL}/issues"
+dev-repo: "${ANVIL_URL}.git"
+tags: [
+  "lazy"
+]
+build: [
+  ["./configure" "--prefix" prefix]
+  ["bmake" "-I%{bsdowl:share}%" "all"] {os != "freebsd"}
+  ["make"  "-I%{bsdowl:share}%" "all"] {os  = "freebsd"}
+]
+install: [
+  ["bmake" "-I%{bsdowl:share}%" "install"] {os != "freebsd"}
+  ["make"  "-I%{bsdowl:share}%" "install"] {os  = "freebsd"}
+]
+remove: [
+  ["ocamlfind" "remove" "${ANVIL_PACKAGE}"]
+  ["rm" "-rf" "%{share}%/doc/${ANVIL_PACKAGE}"]
+]
+available: [
+  ocaml-version >= "4.00.1"
+]
+depends: [
+  "broken" {>= "0.4.2"}
+  "bsdowl" {>= "3.0.0"}
+  "lemonade" {>= "1.0.0"}
+  "ocamlfind"
+]
