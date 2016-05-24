@@ -23,6 +23,9 @@ let license_re ident =
 let newline_re =
   regexp "\n"
 
+let trailing_spaces_re =
+  regexp " *\n"
+
 let expand_blob prefix suffix blob =
   let f m =
     sprintf "%s%s%s" suffix (matched_string m) prefix
@@ -31,6 +34,9 @@ let expand_blob prefix suffix blob =
 
 let spaces s =
   String.(make (length s) ' ')
+
+let remove_trailing_spaces s =
+  global_replace trailing_spaces_re "\n" s
 
 let replace_license ident blob s =
   let f m =
@@ -41,6 +47,7 @@ let replace_license ident blob s =
         prefix ^ (expand_blob prefix suffix blob) ^ suffix
   in
   global_substitute (license_re ident) f s
+  |> remove_trailing_spaces
 
 let transformation_table = [
   'C', String.capitalize;
@@ -60,7 +67,7 @@ let transform code s =
   let loop c s =
     let f =
       try List.assoc c transformation_table
-      with Not_found -> ksprintf failwith "Anvil_Text: %c: Unknown tranformation code." c
+      with Not_found -> ksprintf failwith "Anvil_Text: %c: Unknown transformation code." c
     in
     f s
   in
