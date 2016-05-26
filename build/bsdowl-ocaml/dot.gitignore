@@ -1,3 +1,5 @@
+# dot.gitignore -- Files ignored by git for ${ANVIL_VENDORNAME}
+
 #
 # Autoconf files
 #
@@ -9,4 +11,3 @@ Makefile.config
 Makefile.local
 .merlin
 .product
-subr/anvil_autoconf.sh

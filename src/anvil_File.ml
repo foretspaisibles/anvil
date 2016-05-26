@@ -78,7 +78,7 @@ let populate env rootdir filespec =
         ()
       else
         ksprintf failwith
-          "%s: Cannot create directory since a file with that name already exists."
+          "%s: Cannot create (file already exists)."
           path
     with Sys_error(_) -> install_dir path
   in
@@ -96,4 +96,7 @@ let populate env rootdir filespec =
     maybe_mkparentdir rootdir path;
     install_file (Filename.concat rootdir path) (replace env contents)
   in
-  List.iter mkfile filespec
+  let expand_paths (path, contents) =
+    (Anvil_Text.replace_text env path, contents)
+  in
+  List.iter mkfile (List.map expand_paths filespec)

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+### autoinstall -- Autoinstall for Travis CI
+
+# ${ANVIL_LICENSE_BLOB}
+
+: ${local:=${HOME}/.local}
+: ${srcdir:=${HOME}/.local/sources}
+
+if [ -f "${local}/.anvil_autoinstall_cached" ]; then exit 0; fi
+
+git clone 'https://github.com/michipili/anvil' "${srcdir}/anvil"
+/bin/sh -ex "${srcdir}/anvil/subr/anvil_travisci_autoinstall.sh" "$@"\
+    && touch "${local}/.anvil_autoinstall_cached"
+
+### End of file `autoinstall'

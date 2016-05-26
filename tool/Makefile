@@ -11,8 +11,7 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
 
-PROGRAM=		anvil_init.sh
-PROGRAM+=		anvil_encoding.sh
+PROGRAM=		anvil_encoding.sh
 PROGRAM+=		anvil_sed.sh
 PROGRAM+=		anvil_whitespace.sh
 

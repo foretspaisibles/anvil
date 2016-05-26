@@ -51,8 +51,8 @@ let importdb_job workdir =
   in
   let convert =
     (function
-      | [ "."; "build"; build; filename ] ->
-          (build, filename)
+      | "." :: "build" :: build :: (( _ :: _) as filename) ->
+          (build, String.concat "/" filename)
       | whatever ->
           ksprintf failwith "Anvil_Build.importdb: %s: %s: Bad directory structure."
             workdir
