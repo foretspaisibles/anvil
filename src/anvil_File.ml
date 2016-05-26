@@ -78,7 +78,7 @@ let populate env rootdir filespec =
         ()
       else
         ksprintf failwith
-          "%s: Cannot create directory since a file with that name already exists."
+          "%s: Cannot create (file already exists)."
           path
     with Sys_error(_) -> install_dir path
   in
