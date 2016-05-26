@@ -55,12 +55,17 @@ let file_contents ?workdir filename =
   Rashell_Command.(exec_utility (command ?workdir ("", [| "cat"; filename |])))
 
 let find workdir path =
+  let open Str in
+  let undot_re = regexp "/dot." in
+  let undot s =
+    global_replace undot_re "/." s
+  in
   Rashell_Posix.(find ~workdir (Has_kind S_REG) [path])
   |> Lwt_stream.map_s
     (function filename ->
       let open Lwt.Infix in
       file_contents ~workdir filename
-      >>= fun contents -> Lwt.return (filename, contents))
+      >>= fun contents -> Lwt.return (undot filename, contents))
   |> Lwt_stream.to_list
   |> Lwt_main.run
 
