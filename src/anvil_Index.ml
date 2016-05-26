@@ -74,9 +74,16 @@ let build = {
   description = "The build system used to generate artefacts for the software package.";
 }
 
+let description = {
+  name = "description";
+  display_name = "Short Description";
+  description = "The short description used to present the package.";
+}
+
 let properties = [
   package;
   vendorname;
+  description;
   author;
   officer;
   url;
