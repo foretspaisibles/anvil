@@ -2,11 +2,12 @@
 
 # ${ANVIL_LICENSE_BLOB}
 
-PROG=		${ANVIL_PACKAGE}
+PROG=			${ANVIL_PACKAGE}
 
-# Add program sources to the SRCS variable
-#
-#  SRCS=	${ANVIL_PACKAGE}.ml
+SRCS=			${ANVIL_PACKAGE}_Configuration.ml
+SRCS+=			${ANVIL_PACKAGE}_Main.ml
+
+REPLACEFILE=		${ANVIL_PACKAGE}_Configuration.ml.in
 
 .include "ocaml.prog.mk"
 

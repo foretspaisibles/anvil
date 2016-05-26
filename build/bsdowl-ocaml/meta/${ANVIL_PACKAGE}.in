@@ -1,12 +1,12 @@
 name="${ANVIL_PACKAGE}"
-version="@VERSION@"
+version="@version@"
 description="${ANVIL_DESCRIPTION}"
 requires="lemonade"
 archive(byte) = "${ANVIL_PACKAGE}.cma"
 archive(native) = "${ANVIL_PACKAGE}.cmxa"
 
 package "ppx" (
- version = "@VERSION@"
+ version = "@version@"
  description = "ppx rewriter syntax extension"
  requires = "${ANVIL_PACKAGE}"
  ppx = "ppx_${ANVIL_PACKAGE}"

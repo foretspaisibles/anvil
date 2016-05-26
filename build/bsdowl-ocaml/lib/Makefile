@@ -2,11 +2,7 @@
 
 # ${ANVIL_LICENSE_BLOB}
 
-LIB=		${ANVIL_PACKAGE}
-
-# Add library sources to the SRCS variable
-#
-#  SRCS=	${ANVIL_PACKAGE}.ml
+LIBRARY=		${ANVIL_PACKAGE}
 
 .include "ocaml.lib.mk"
 

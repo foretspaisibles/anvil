@@ -96,4 +96,7 @@ let populate env rootdir filespec =
     maybe_mkparentdir rootdir path;
     install_file (Filename.concat rootdir path) (replace env contents)
   in
-  List.iter mkfile filespec
+  let expand_paths (path, contents) =
+    (Anvil_Text.replace_text env path, contents)
+  in
+  List.iter mkfile (List.map expand_paths filespec)

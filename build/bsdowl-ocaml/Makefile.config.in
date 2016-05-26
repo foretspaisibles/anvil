@@ -24,6 +24,8 @@ PREFIX?=		${prefix}
 EXEC_PREFIX?=		${exec_prefix}
 DATAROOTDIR?=		${datarootdir}
 
+REPLACESUBST=		${STDREPLACESUBST}
+
 # Local Variables:
 # mode: makefile
 # End:

@@ -2,7 +2,7 @@
 
 # ${ANVIL_LICENSE_BLOB}
 
-META=			META.in
+META=			${ANVIL_PACKAGE}.in
 
 .include "ocaml.meta.mk"
 
