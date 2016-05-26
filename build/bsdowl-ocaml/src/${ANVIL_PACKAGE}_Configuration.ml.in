@@ -9,7 +9,7 @@ let ac_package =
   "@PACKAGE@"
 
 let ac_version =
-  "@ac_version@"
+  "@VERSION@"
 
 let ac_dir_prefix =
   "@prefix@"
