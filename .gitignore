@@ -6,5 +6,7 @@ config.log
 config.status
 configure
 Makefile.config
+Makefile.local
+.merlin
 .product
 subr/anvil_autoconf.sh
