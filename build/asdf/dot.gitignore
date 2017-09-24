@@ -1,0 +1,3 @@
+# dot.gitignore -- Files ignored by git for ${ANVIL_VENDORNAME}
+
+*.fasl
