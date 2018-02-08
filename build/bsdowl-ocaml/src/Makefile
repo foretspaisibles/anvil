@@ -11,4 +11,4 @@ REPLACEFILE=		${ANVIL_PACKAGE}_Configuration.ml.in
 
 .include "ocaml.prog.mk"
 
-### End of file ``Makefile''
+### End of file `Makefile'

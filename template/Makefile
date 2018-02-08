@@ -4,4 +4,4 @@ Description: A minimal Makefile
 
 # ${ANVIL_LICENSE_BLOB}
 
-### End of file ``${ANVIL_FILENAME}''
+### End of file `${ANVIL_FILENAME}'

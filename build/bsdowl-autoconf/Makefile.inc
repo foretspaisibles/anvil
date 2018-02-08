@@ -6,4 +6,4 @@
 # mode: makefile
 # End:
 
-### End of file ``Makefile.inc''
+### End of file `Makefile.inc'

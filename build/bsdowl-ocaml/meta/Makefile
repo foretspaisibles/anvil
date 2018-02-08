@@ -6,4 +6,4 @@ META=			${ANVIL_PACKAGE}.in
 
 .include "ocaml.meta.mk"
 
-### End of file ``Makefile''
+### End of file `Makefile'

@@ -28,4 +28,4 @@ DATAROOTDIR?=		${datarootdir}
 # mode: makefile
 # End:
 
-### End of file ``Makefile.config.in''
+### End of file `Makefile.config.in'

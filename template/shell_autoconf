@@ -110,4 +110,4 @@ PACKAGE='${ANVIL_PACKAGE}'
 : ${localedir:=${datarootdir}/locale}
 
 
-### End of file ``${ANVIL_FILENAME}''
+### End of file `${ANVIL_FILENAME}'

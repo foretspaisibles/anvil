@@ -6,4 +6,4 @@ AC_INIT([ANVIL_AUTOCONF_INIT])
 AC_CONFIG_FILES([Makefile.config])
 AC_OUTPUT
 
-### End of file ``configure.ac''
+### End of file `configure.ac'

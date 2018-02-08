@@ -14,4 +14,4 @@ AC_WITH_OCAML_SITE_LIB
 AC_CONFIG_FILES([Makefile.config])
 AC_OUTPUT
 
-### End of file ``configure.ac''
+### End of file `configure.ac'

@@ -20,4 +20,4 @@ EXTERNAL+=		ocaml.findlib:lemonade
 
 .include "generic.project.mk"
 
-### End of file ``Makefile''
+### End of file `Makefile'
