@@ -80,15 +80,15 @@ let rows_to_list convert rows =
   |> join
   |> run_unsafe
 
-let get ?binding sql convert db =
+let get ?(binding = []) sql convert db =
   let open Lemonade_Sqlite.Infix in
-  query ?binding (statement sql) db
+  query (binding_apply (statement sql) binding) db
   |> one
   >>= convert
   |> run_unsafe
 
-let query ?binding sql convert db =
-  query ?binding (statement sql) db
+let query ?(binding = []) sql convert db =
+  query (binding_apply (statement sql) binding) db
   |> rows_to_list convert
 
 let insert program db =
